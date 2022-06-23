@@ -4,6 +4,52 @@ body {
     background-color: #f3f3f3;
 }
 
+.color-body {
+    background-color: white;
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login img {
+    margin-top: 60px;
+    width: 100px;
+}
+
+.login input {
+    margin-top: 60px;
+    width: 200px;
+    height: 40px;
+    border: 1px solid #dfdddd;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.login input::placeholder {
+    text-align: center;
+}
+
+.login button {
+    margin-top: 15px;
+    width: 90px;
+    height: 30px;
+    border-radius: 6px;
+    border: none;
+    background-color: #dfdddd;
+    color: grey;
+}
+
+.login h4 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #000000;
+}
+
 .top {
     width: 375px;
     height: 80px;
@@ -30,6 +76,10 @@ body {
 .container {
     margin: 100px 0;
     width: 375px;
+}
+
+.hidden {
+    display: none;
 }
 
 .footer {
@@ -120,4 +170,12 @@ h4 {
     justify-content: left;
     align-items: center;
     margin: 5px 0;
+}
+
+textarea {
+    resize: none;
+}
+
+textarea:focus {
+    outline:none
 }

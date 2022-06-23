@@ -8,22 +8,32 @@
         <link rel="stylesheet" href="reset.css">
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
+    <body class="color-body">
 
-        <div class="top">
+        <div class="login">
             <img src="img/logo 1.png" alt="logo-uol">
-            <img src="img/people.png" alt="icon-people">
+            <input type="text" placeholder="Digite o seu nome">
+            <button onclick="sendUserNameToServer()">Entrar</button>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="" class="loading hidden">
+            <h4 class="hidden">Entrando...</h4>
         </div>
 
-        <div class="container">
-            
-        </div>
+        <div class="page hidden">
+            <div class="top">
+                <img src="img/logo 1.png" alt="logo-uol">
+                <img src="img/people.png" alt="icon-people">
+            </div>
 
-        <div class="footer">
-            <input type="text" placeholder="Escreva aqui...">
-            <img src="img/send.png" alt="icon-send" onclick="sendMessage()">
-        </div>
+            <div class="container">
+                
+            </div>
 
+            <div class="footer">
+                <input type="text" placeholder="Escreva aqui...">
+                <img src="img/send.png" alt="icon-send" onclick="sendMessage()">
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="scripts.js"></script>
     </body>
 </html>
