@@ -2,6 +2,11 @@
 
 body {
     background-color: #f3f3f3;
+    position: relative;
+}
+
+.properties-body {
+    overflow-y: hidden;
 }
 
 .color-body {
@@ -64,6 +69,10 @@ body {
     left: 0;
 }
 
+.properties-top {
+    position: relative;
+}
+
 .top img:nth-child(1) {
     margin-left: 20px;
 }
@@ -78,8 +87,8 @@ body {
     width: 375px;
 }
 
-.hidden {
-    display: none;
+.properties-container {
+    margin-top: 20px;
 }
 
 .footer {
@@ -96,7 +105,7 @@ body {
     left: 0;
 }
 
-.footer input {
+.footer textarea {
     margin-left: 20px;
     border: none;
     width: 145px;
@@ -106,6 +115,7 @@ body {
     font-size: 18px;
     line-height: 21px;
     color: #000000;
+    resize: none;
 }
 
 .footer input::placeholder {
@@ -174,8 +184,75 @@ h4 {
 
 textarea {
     resize: none;
+    width: 145px;
+    height: 30px;
 }
 
 textarea:focus {
     outline:none
+}
+
+.side-menu {
+    width: 259px;
+    height: 100%;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: left;
+}
+
+.side-menu h4 {
+    margin-top: 20px;
+    text-align: center;
+    color: #000000;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 18.75px;
+}
+
+.side-menu p {
+    color: #000000;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18.75px;
+}
+
+.properties-sideMenu {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.contact {
+    margin-top: 10px;
+    width: 259px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.visible div{
+    margin-top: 15px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.visible > div > img {
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.img-person {
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.hidden {
+    display: none;
 }

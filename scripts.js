@@ -6,14 +6,36 @@ const urlServerParticipants = "https://mock-api.driven.com.br/api/v6/uol/partici
 const urlServerStatus = "https://mock-api.driven.com.br/api/v6/uol/status"
 const container = document.querySelector(".container")
 
-
-function sendUserNameToServer () {
+//Inicio de tudo
+function begin () {
     name = document.querySelector(".login input").value
     userName = { name: name };
+
+    const promiseOnline = axios.get(urlServerParticipants)
+    promiseOnline.then(listParticipants)
+}
+
+//Testa se o nome enviado ja existe no servidor
+function listParticipants (resposta) {
+    console.log(resposta.data)
+    for (let i = 0; i < (resposta.data).length; i++) {
+        console.log(resposta.data[i].name)
+        if (name === resposta.data[i].name) {
+            alert("Esse nome está em uso, digite outro")
+            return
+        }
+    }
+    sendUserNameToServer()
+}
+
+
+
+function sendUserNameToServer () {
+    
     document.querySelector(".loading").classList.remove("hidden")
     document.querySelector(".login h4").classList.remove("hidden")
 
-    setTimeout(function () {
+    setTimeout(function () { //dar um tempo so pra enganar e ficar rodando o loading
 
         const promise = axios.post(urlServerParticipants, userName)
         promise.then((code) => {
@@ -21,6 +43,7 @@ function sendUserNameToServer () {
             console.log("usuario aceito")
             console.log(code.status)
             searchMessagesFromServer ()
+            setInterval(updateUser, 5000) //Atualizando usuario
             document.querySelector(".login").classList.add("hidden")
             document.querySelector("body").classList.remove("color-body")
             document.querySelector(".page").classList.remove("hidden")
@@ -31,10 +54,8 @@ function sendUserNameToServer () {
             console.log("usuario negado")
             let statusCode = code.response.status
             console.log(statusCode)
-            sendUserNameToServer()
-        
     })
-    }, 3000)
+    }, 0) //adicionar tempo aqui
 }
 
 
@@ -49,13 +70,11 @@ function updateUser () {
         console.log("usuario foi desconectado")
     })
 }
-setInterval(updateUser, 5000) //Atualizando usuario
- 
 
+ 
 function searchMessagesFromServer () {
     const promise = axios.get(urlServerMessages)
     promise.then(messagesFromServer)
-    
 }
 setInterval(searchMessagesFromServer, 3000) //Atualizando mensagens
 
@@ -92,7 +111,7 @@ function messagesFromServer (answerServer) {
 //Enviando mensagem para o servidor
 function sendMessage () {
 
-    let valueMessage = document.querySelector(".footer input").value
+    let valueMessage = document.querySelector(".footer textarea").value
 
     messageFromUser = {
         from: userName.name,
@@ -106,15 +125,84 @@ function sendMessage () {
     axios.post(urlServerMessages, messageFromUser)
     .then(() => {
         console.log("mensagem enviada")
-        messagesFromServer ()
+        //messagesFromServer ()
+        searchMessagesFromServer ()
     })
     .catch(() => {
         console.log("mensagem negada")
     })
 
-
+    document.querySelector(".footer textarea").value = ""
     /*verificar se esta correto 
     const elementView = document.querySelector('.user-messenger');
     elementView.scrollIntoView();*/
     
 }
+
+//Menu lateral com alguns bugs
+function openSideMenu () {
+
+    const elementSideMenu = document.querySelector(".side-menu")
+    elementSideMenu.classList.add("properties-sideMenu")
+    //document.querySelector(".top").classList.add("properties-top")
+    document.querySelector("body").classList.add("properties-body")
+    document.querySelector(".container").classList.add("properties-container")
+    elementSideMenu.classList.remove("hidden")
+    console.log("abriu menu lateral")
+    searchParticipants()
+}
+
+
+function offSideMenu () {
+    const elementSideMenu = document.querySelector(".side-menu")
+
+    if (elementSideMenu.classList.contains("hidden")){
+        console.log("menu lateral nao ta aberto")
+        
+    }
+    else {
+        elementSideMenu.classList.add("hidden")
+        elementSideMenu.classList.remove("properties-sideMenu")
+        //document.querySelector(".top").classList.remove("properties-top")
+        document.querySelector("body").classList.remove("properties-body")
+        document.querySelector(".container").classList.remove("properties-container")
+        console.log("fechei menu lateral")
+    }
+}
+
+
+function searchParticipants () {
+    const promise = axios.get(urlServerParticipants)
+    promise.then(listPartipantsOnline)
+}
+
+
+function listPartipantsOnline (answerServerParticipants) {
+    participantsData = answerServerParticipants.data
+    const contacts = document.querySelector(".contacts")
+    contacts.innerHTML = ""
+    console.log("atualizando mensagens")
+
+    contacts.innerHTML = `
+    <div class="contact" onclick = "selectParticipants()">
+        <img src="img/Vector.png" alt="" class="img-person">
+        <p>Todos</p>
+    </div>
+    `
+
+    for (let i = 0; i < participantsData.length; i++) {
+
+        contacts.innerHTML += `
+        <div class="contact" onclick="SelectParticipants()">
+            <img src="img/face.png" alt="" class="img-person">
+            <p>${participantsData[i].name}</p>
+        </div>
+        `
+    }
+}
+
+
+function selectParticipants () {
+    console.log("selecionou")
+}
+

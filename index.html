@@ -13,15 +13,15 @@
         <div class="login">
             <img src="img/logo 1.png" alt="logo-uol">
             <input type="text" placeholder="Digite o seu nome">
-            <button onclick="sendUserNameToServer()">Entrar</button>
+            <button onclick="begin()">Entrar</button>
             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921" alt="" class="loading hidden">
             <h4 class="hidden">Entrando...</h4>
         </div>
 
         <div class="page hidden">
             <div class="top">
-                <img src="img/logo 1.png" alt="logo-uol">
-                <img src="img/people.png" alt="icon-people">
+                <img src="img/logo 1.png" alt="logo-uol" onclick="offSideMenu()">
+                <img src="img/people.png" alt="icon-people" onclick="openSideMenu()">
             </div>
 
             <div class="container">
@@ -29,9 +29,28 @@
             </div>
 
             <div class="footer">
-                <input type="text" placeholder="Escreva aqui...">
+                <textarea placeholder="Escreva aqui..."></textarea>
+                <!--<input type="text" placeholder="Escreva aqui...">-->
                 <img src="img/send.png" alt="icon-send" onclick="sendMessage()">
             </div>
+            <!---->
+            <div class="hidden side-menu">
+                <h4>Escolha um contato para enviar mensagem:</h4>
+                <div class="contacts">
+                </div>
+                <div class="visible">
+                    <h4>Escolha a visibilidade:</h4>
+                    <div>
+                        <img src="img/cadeado-aberto.png" alt="">
+                        <p>Público</p>
+                    </div>
+                    <div>
+                        <img src="img/cadeado-fechado.png" alt="">
+                        <p>Reservadamente</p>
+                    </div>
+                </div>
+            </div>
+            
         </div>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="scripts.js"></script>
