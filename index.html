@@ -29,29 +29,33 @@
             </div>
 
             <div class="footer">
-                <textarea placeholder="Escreva aqui..."></textarea>
-                <!--<input type="text" placeholder="Escreva aqui...">-->
+                <div>
+                    <textarea placeholder="Escreva aqui..."></textarea>
+                    <p></p>
+                </div>
                 <img src="img/send.png" alt="icon-send" onclick="sendMessage()">
             </div>
-            <!---->
-            <div class="hidden side-menu">
-                <h4>Escolha um contato para enviar mensagem:</h4>
-                <div class="contacts">
+        </div>
+
+        <div class="side-menu hidden">
+            <h4>Escolha um contato para enviar mensagem:</h4>
+            <div class="contacts">
+            </div>
+            <div class="visible">
+                <h4>Escolha a visibilidade:</h4>
+                <div onclick="selectVisibility(this)">
+                    <img src="img/cadeado-aberto.png" >
+                    <p>Público</p>
+                    <img src="img/select.png" class = "img-select-visible hidden">
                 </div>
-                <div class="visible">
-                    <h4>Escolha a visibilidade:</h4>
-                    <div>
-                        <img src="img/cadeado-aberto.png" alt="">
-                        <p>Público</p>
-                    </div>
-                    <div>
-                        <img src="img/cadeado-fechado.png" alt="">
-                        <p>Reservadamente</p>
-                    </div>
+                <div onclick="selectVisibility(this)">
+                    <img src="img/cadeado-fechado.png" >
+                    <p>Reservadamente</p>
+                    <img src="img/select.png" class = "img-select-visible hidden">
                 </div>
             </div>
-            
         </div>
+
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="scripts.js"></script>
     </body>

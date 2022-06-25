@@ -1,10 +1,14 @@
 let name
 let userName
 let varies = 0
+let participant = "Todos"
+let visibility 
+let typeMsg = "message"
 const urlServerMessages = "https://mock-api.driven.com.br/api/v6/uol/messages"
 const urlServerParticipants = "https://mock-api.driven.com.br/api/v6/uol/participants"
 const urlServerStatus = "https://mock-api.driven.com.br/api/v6/uol/status"
 const container = document.querySelector(".container")
+
 
 //Inicio de tudo
 function begin () {
@@ -76,20 +80,21 @@ function searchMessagesFromServer () {
     const promise = axios.get(urlServerMessages)
     promise.then(messagesFromServer)
 }
-setInterval(searchMessagesFromServer, 3000) //Atualizando mensagens
+setInterval(searchMessagesFromServer, 3000) 
 
 
 function messagesFromServer (answerServer) {
 
+    let numberMessage = 0
     messagesData = answerServer.data
     container.innerHTML = ""
     console.log("atualizando mensagens")
 
     for (let i = 0; i < messagesData.length; i++) {
-
+        numberMessage += 1
         if (messagesData[i].type == "status") {
             container.innerHTML += `
-            <div class="on-off">
+            <div class="on-off msg${numberMessage}">
                 <div class="time">(${messagesData[i].time})</div>
                 <h4><strong>${messagesData[i].from}</strong> ${messagesData[i].text}</h4>
             </div>
@@ -98,13 +103,31 @@ function messagesFromServer (answerServer) {
 
         else if (messagesData[i].type == "message") {
             container.innerHTML += `
-            <div class="user-messenger">
+            <div class="user-messenger msg${numberMessage}">
                 <div class="time">(${messagesData[i].time})</div>
-                <h4><strong>${messagesData[i].from}</strong> para <strong>${messagesData[i].to}</strong>: ${messagesData[i].text}</h4>
+                <div class="msg">
+                    <h4>
+                        <strong>${messagesData[i].from}</strong> para <strong>${messagesData[i].to}</strong>: ${messagesData[i].text}
+                    </h4>
+                </div>
+            </div>
+            `
+        }
+        else if (messagesData[i].type == "private_message" && (messagesData[i].to === name || messagesData[i].from === name)) {
+            container.innerHTML += `
+            <div class="direct-messenger msg${numberMessage}">
+                <div class="time">(${messagesData[i].time})</div>
+                <div class="msg">
+                    <h4>
+                        <strong>${messagesData[i].from}</strong> para <strong>${messagesData[i].to}</strong>: ${messagesData[i].text}
+                    </h4>
+                </div>
             </div>
             `
         }
     }
+    const elementView = document.querySelector('.msg99');
+    elementView.scrollIntoView();
 }
 
 
@@ -113,33 +136,51 @@ function sendMessage () {
 
     let valueMessage = document.querySelector(".footer textarea").value
 
+    if (visibility === "Público") {
+        typeMsg = "message"
+    }
+    else if (visibility == "Reservadamente") {
+        typeMsg = "private_message"
+    }
+
     messageFromUser = {
         from: userName.name,
-        to: "Todos",
+        to: participant,
         text: valueMessage,
-        type: "message"
+        type: typeMsg
     }
 
     console.log(messageFromUser)
 
-    axios.post(urlServerMessages, messageFromUser)
-    .then(() => {
+    const promise = axios.post(urlServerMessages, messageFromUser)
+    promise.then(() => {
         console.log("mensagem enviada")
         //messagesFromServer ()
         searchMessagesFromServer ()
     })
-    .catch(() => {
+    promise.catch(() => {
         console.log("mensagem negada")
+        alert("Não foi possível enviar a mensagem, entre novamente na sala")
+        window.location.reload()
     })
 
     document.querySelector(".footer textarea").value = ""
-    /*verificar se esta correto 
-    const elementView = document.querySelector('.user-messenger');
-    elementView.scrollIntoView();*/
+    
     
 }
 
+/*Ta funcionando mas ta zoando a caixa de mensagem
+document.addEventListener('keydown', function(e) {
+    if(e.key == "Enter"){
+      document.querySelector(".footer img").click();
+      
+    }
+});
+*/
+
+
 //Menu lateral com alguns bugs
+
 function openSideMenu () {
 
     const elementSideMenu = document.querySelector(".side-menu")
@@ -175,34 +216,72 @@ function searchParticipants () {
     const promise = axios.get(urlServerParticipants)
     promise.then(listPartipantsOnline)
 }
-
+//setInterval(searchParticipants, 2000)
 
 function listPartipantsOnline (answerServerParticipants) {
     participantsData = answerServerParticipants.data
     const contacts = document.querySelector(".contacts")
     contacts.innerHTML = ""
-    console.log("atualizando mensagens")
+    console.log("atualizando participantes")
 
     contacts.innerHTML = `
-    <div class="contact" onclick = "selectParticipants()">
-        <img src="img/Vector.png" alt="" class="img-person">
-        <p>Todos</p>
+    <div class="contact" onclick = "selectParticipants(this)">
+        <div>
+            <img src="img/Vector.png" alt="" class="img-person">
+            <p>Todos</p>
+        </div>
+        <img src="img/select.png" class = "img-select hidden">
     </div>
     `
 
     for (let i = 0; i < participantsData.length; i++) {
 
         contacts.innerHTML += `
-        <div class="contact" onclick="SelectParticipants()">
-            <img src="img/face.png" alt="" class="img-person">
-            <p>${participantsData[i].name}</p>
+        <div class="contact" onclick="selectParticipants(this)">
+            <div>
+                <img src="img/face.png" alt="" class="img-person">
+                <p>${participantsData[i].name}</p>
+            </div>
+            <img src="img/select.png" class = "img-select hidden">
         </div>
         `
     }
 }
 
 
-function selectParticipants () {
-    console.log("selecionou")
+function selectParticipants (element) {
+    
+    const elementClicked = document.querySelector(".clicked")
+
+    if (elementClicked !== null) {
+        elementClicked.classList.remove("clicked")
+        elementClicked.querySelector(".img-select").classList.add("hidden")
+    }
+
+    element.classList.add("clicked")
+    element.querySelector(".img-select").classList.remove("hidden")
+
+    participant = element.querySelector("p").innerHTML
+    
+    if (visibility == undefined) {visibility = "Público"}
+
+    document.querySelector(".footer p").innerHTML = `Enviando para ${participant} (${visibility})`
+    return participant
 }
 
+function selectVisibility(element) {
+
+    const elementClicked = document.querySelector(".clicked-visible")
+
+    if (elementClicked !== null) {
+        elementClicked.classList.remove("clicked-visible")
+        elementClicked.querySelector(".img-select-visible").classList.add("hidden")
+    }
+
+    element.classList.add("clicked-visible")
+    element.querySelector(".img-select-visible").classList.remove("hidden")
+
+    visibility = element.querySelector("p").innerHTML
+    document.querySelector(".footer p").innerHTML = `Enviando para ${participant} (${visibility})`
+    return visibility
+}
