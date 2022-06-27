@@ -2,8 +2,6 @@
 
 body {
     background-color: #f3f3f3;
-    /*position: relative;*/
-    /*width: 375px;*/
 }
 
 .properties-body {
@@ -85,7 +83,6 @@ body {
 
 .page {
     width: 375px;
-    /*position: relative;*/
 }
 
 .container {
@@ -195,8 +192,8 @@ h4 {
     justify-content: left;
     align-items: center;
     margin: 5px 0;
-    word-wrap: break-word;
-    word-break: break-all;
+    /*word-wrap: break-word;*/
+    /*word-break: break-all;*/
 }
 
 .direct-messenger {
@@ -250,7 +247,7 @@ textarea:focus {
 }
 
 .properties-sideMenu {
-    position: fixed; /*troquei o absolute pelo fixed*/
+    position: fixed; 
     right: 0;
     top: 0;
     bottom: 0;
@@ -265,9 +262,8 @@ textarea:focus {
     align-items: center;
 }
 
-/*resolver o problema do nome grande na lista de participantes*/
 .contact div {
-    min-width: 100px;
+    max-width: 220px;
     word-wrap: break-word;
     word-break: break-all;
     display: flex;

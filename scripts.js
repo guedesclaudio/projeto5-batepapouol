@@ -21,9 +21,7 @@ function begin () {
 
 //Testa se o nome enviado ja existe no servidor
 function listParticipants (resposta) {
-    console.log(resposta.data)
     for (let i = 0; i < (resposta.data).length; i++) {
-        console.log(resposta.data[i].name)
         if (name === resposta.data[i].name) {
             alert("Esse nome está em uso, digite outro")
             return
@@ -39,11 +37,10 @@ function sendUserNameToServer () {
     document.querySelector(".loading").classList.remove("hidden")
     document.querySelector(".login h4").classList.remove("hidden")
 
-    setTimeout(function () { //dar um tempo so pra enganar e ficar rodando o loading
+    setTimeout(function () { 
 
         const promise = axios.post(urlServerParticipants, userName)
         promise.then((code) => {
-
             console.log("usuario aceito")
             console.log(code.status)
             searchMessagesFromServer ()
@@ -54,12 +51,11 @@ function sendUserNameToServer () {
             
     })
         promise.catch((code) => {
-        
             console.log("usuario negado")
             let statusCode = code.response.status
             console.log(statusCode)
     })
-    }, 1500) //adicionar tempo aqui
+    }, 1500) 
 }
 
 
@@ -152,8 +148,6 @@ function sendMessage () {
         type: typeMsg
     }
 
-    console.log(messageFromUser)
-
     const promise = axios.post(urlServerMessages, messageFromUser)
     promise.then(() => {
         console.log("mensagem enviada")
@@ -171,7 +165,8 @@ function sendMessage () {
     
 }
 
-/*Ta funcionando mas ta zoando a caixa de mensagem
+//Ta funcionando mas ta zoando a caixa de mensagem
+/*
 document.addEventListener('keydown', function(e) {
     if(e.key == "Enter"){
       document.querySelector(".footer img").click();
@@ -181,14 +176,9 @@ document.addEventListener('keydown', function(e) {
 */
 
 
-//Menu lateral com alguns bugs
-
 function openSideMenu () {
-
     const elementSideMenu = document.querySelector(".side-menu")
     elementSideMenu.classList.add("properties-sideMenu")
-    //document.querySelector(".top").classList.add("properties-top")
-
     document.querySelector(".black-screen").classList.remove("hidden")
     document.querySelector("body").classList.add("properties-body")
     document.querySelector(".container").classList.add("properties-container")
@@ -203,19 +193,16 @@ function offSideMenu () {
 
     if (elementSideMenu.classList.contains("hidden")){
         console.log("menu lateral nao ta aberto")
-        
     }
     else {
         elementSideMenu.classList.add("hidden")
         document.querySelector(".black-screen").classList.add("hidden")
         elementSideMenu.classList.remove("properties-sideMenu")
-        //document.querySelector(".top").classList.remove("properties-top")
         document.querySelector("body").classList.remove("properties-body")
         document.querySelector(".container").classList.remove("properties-container")
         console.log("fechei menu lateral")
     }
 }
-
 
 function searchParticipants () {
     const promise = axios.get(urlServerParticipants)
@@ -252,7 +239,6 @@ function listPartipantsOnline (answerServerParticipants) {
         `
     }
 }
-
 
 function selectParticipants (element) {
     
