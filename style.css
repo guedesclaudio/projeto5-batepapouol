@@ -31,6 +31,8 @@ body {
     border: 1px solid #dfdddd;
     background-color: white;
     border-radius: 5px;
+    text-align: center;
+    outline: none;
 }
 
 .login input::placeholder {
@@ -192,8 +194,8 @@ h4 {
     justify-content: left;
     align-items: center;
     margin: 5px 0;
-    /*word-wrap: break-word;*/
-    /*word-break: break-all;*/
+    word-wrap: break-word;
+    word-break: break-all;
 }
 
 .direct-messenger {
@@ -275,7 +277,7 @@ textarea:focus {
     margin-bottom: 20px;
 }
 
-.visible div{
+.visible div {
     margin-top: 15px;
     display: flex;
     justify-content: left;

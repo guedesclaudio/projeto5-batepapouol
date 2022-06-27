@@ -52,6 +52,8 @@ function sendUserNameToServer () {
     })
         promise.catch((code) => {
             console.log("usuario negado")
+            alert("Digite um nome válido")
+            window.location.reload()
             let statusCode = code.response.status
             console.log(statusCode)
     })
