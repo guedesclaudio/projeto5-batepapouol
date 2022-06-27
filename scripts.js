@@ -59,7 +59,7 @@ function sendUserNameToServer () {
             let statusCode = code.response.status
             console.log(statusCode)
     })
-    }, 0) //adicionar tempo aqui
+    }, 1500) //adicionar tempo aqui
 }
 
 
@@ -96,7 +96,9 @@ function messagesFromServer (answerServer) {
             container.innerHTML += `
             <div class="on-off msg${numberMessage}">
                 <div class="time">(${messagesData[i].time})</div>
-                <h4><strong>${messagesData[i].from}</strong> ${messagesData[i].text}</h4>
+                <div class = "msg">
+                    <h4><strong>${messagesData[i].from}</strong> ${messagesData[i].text}</h4>
+                </div>
             </div>
             `
         } 
@@ -186,6 +188,8 @@ function openSideMenu () {
     const elementSideMenu = document.querySelector(".side-menu")
     elementSideMenu.classList.add("properties-sideMenu")
     //document.querySelector(".top").classList.add("properties-top")
+
+    document.querySelector(".black-screen").classList.remove("hidden")
     document.querySelector("body").classList.add("properties-body")
     document.querySelector(".container").classList.add("properties-container")
     elementSideMenu.classList.remove("hidden")
@@ -203,6 +207,7 @@ function offSideMenu () {
     }
     else {
         elementSideMenu.classList.add("hidden")
+        document.querySelector(".black-screen").classList.add("hidden")
         elementSideMenu.classList.remove("properties-sideMenu")
         //document.querySelector(".top").classList.remove("properties-top")
         document.querySelector("body").classList.remove("properties-body")
@@ -216,7 +221,7 @@ function searchParticipants () {
     const promise = axios.get(urlServerParticipants)
     promise.then(listPartipantsOnline)
 }
-//setInterval(searchParticipants, 2000)
+setInterval(searchParticipants, 10000)
 
 function listPartipantsOnline (answerServerParticipants) {
     participantsData = answerServerParticipants.data
@@ -238,7 +243,7 @@ function listPartipantsOnline (answerServerParticipants) {
 
         contacts.innerHTML += `
         <div class="contact" onclick="selectParticipants(this)">
-            <div>
+            <div class="participant">
                 <img src="img/face.png" alt="" class="img-person">
                 <p>${participantsData[i].name}</p>
             </div>
