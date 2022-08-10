@@ -10,7 +10,7 @@ const urlServerStatus = "https://mock-api.driven.com.br/api/v6/uol/status"
 const container = document.querySelector(".container")
 
 
-//Inicio de tudo
+
 function begin () {
     name = document.querySelector(".login input").value
     userName = { name: name };
@@ -19,7 +19,7 @@ function begin () {
     promiseOnline.then(listParticipants)
 }
 
-//Testa se o nome enviado ja existe no servidor
+
 function listParticipants (resposta) {
     for (let i = 0; i < (resposta.data).length; i++) {
         if (name === resposta.data[i].name) {
@@ -41,21 +41,17 @@ function sendUserNameToServer () {
 
         const promise = axios.post(urlServerParticipants, userName)
         promise.then((code) => {
-            console.log("usuario aceito")
-            console.log(code.status)
             searchMessagesFromServer ()
-            setInterval(updateUser, 5000) //Atualizando usuario
+            setInterval(updateUser, 5000) 
             document.querySelector(".login").classList.add("hidden")
             document.querySelector("body").classList.remove("color-body")
             document.querySelector(".page").classList.remove("hidden")
             
     })
         promise.catch((code) => {
-            console.log("usuario negado")
             alert("Digite um nome válido")
             window.location.reload()
             let statusCode = code.response.status
-            console.log(statusCode)
     })
     }, 1500) 
 }
@@ -64,12 +60,10 @@ function sendUserNameToServer () {
 function updateUser () {
     const promise = axios.post(urlServerStatus, userName)
     promise.then(() => {
-        console.log("usuario esta conectado")
         errorUserName = false
     })
     promise.catch(() => {
         errorUserName = true
-        console.log("usuario foi desconectado")
     })
 }
 
@@ -86,7 +80,6 @@ function messagesFromServer (answerServer) {
     let numberMessage = 0
     messagesData = answerServer.data
     container.innerHTML = ""
-    console.log("atualizando mensagens")
 
     for (let i = 0; i < messagesData.length; i++) {
         numberMessage += 1
@@ -131,7 +124,6 @@ function messagesFromServer (answerServer) {
 }
 
 
-//Enviando mensagem para o servidor
 function sendMessage () {
 
     let valueMessage = document.querySelector(".footer textarea").value
@@ -153,7 +145,6 @@ function sendMessage () {
     const promise = axios.post(urlServerMessages, messageFromUser)
     promise.then(() => {
         console.log("mensagem enviada")
-        //messagesFromServer ()
         searchMessagesFromServer ()
     })
     promise.catch(() => {
@@ -166,16 +157,6 @@ function sendMessage () {
     
     
 }
-
-//Ta funcionando mas ta zoando a caixa de mensagem
-/*
-document.addEventListener('keydown', function(e) {
-    if(e.key == "Enter"){
-      document.querySelector(".footer img").click();
-      
-    }
-});
-*/
 
 
 function openSideMenu () {
@@ -202,7 +183,6 @@ function offSideMenu () {
         elementSideMenu.classList.remove("properties-sideMenu")
         document.querySelector("body").classList.remove("properties-body")
         document.querySelector(".container").classList.remove("properties-container")
-        console.log("fechei menu lateral")
     }
 }
 
@@ -216,7 +196,6 @@ function listPartipantsOnline (answerServerParticipants) {
     participantsData = answerServerParticipants.data
     const contacts = document.querySelector(".contacts")
     contacts.innerHTML = ""
-    console.log("atualizando participantes")
 
     contacts.innerHTML = `
     <div class="contact" onclick = "selectParticipants(this)">
