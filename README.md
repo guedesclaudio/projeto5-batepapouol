@@ -7,23 +7,26 @@
   <br>
 - Tela exclusiva para mobile
   <br>
-- Conexão com a API utilizando axios para alimentação dos dados das mensages, participantes online e mensagens privadas
+- 
 
 # Funcionalidades
-- Entre com um nome, não é necessáario login
+- Tela de boas vindas
 - Opção de enviar uma mensagem privada para algum participante ou mensagem pública para todos
-- Com a saída da sala, será desconectado automaticamente 
+- Desconeção automática após sair da sala
+- Mensagens atualizadas
 - Lista de participantes online atualizada 
 - Scroll automático para a última mensagem da sala
+- Alimentação dos dados vindos de uma api através do axios
 
 # Tecnologias 
-- <img align="center" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg">
-- <img align="center" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg">
-- <img align="center" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg">
-- <img align="center" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/git/git-original.svg">
-- <img align="center" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original.svg">
-- <img align="center" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg">
-- <img align="center" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg">
+- HTML5
+- CSS3
+- JAVASCRIPT
+- AXIOS
+- GIT 
+- GITHUB 
+- VSCODE 
+- LINUX 
 
 
 # Preview
