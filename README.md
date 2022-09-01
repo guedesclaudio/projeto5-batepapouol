@@ -7,7 +7,6 @@
   <br>
 - Tela exclusiva para mobile
   <br>
-- 
 
 # Funcionalidades
 - Tela de boas vindas
